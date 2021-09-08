@@ -9,5 +9,6 @@
 # Import PuLP, python linear programming modeller function as alias plp
 import pulp as plp
 
-# Step 1: Define the Linear Programming problem
-
+# Step 1: Define the Linear Programming problem (variable to contain problem data)
+# Use LpVariable() to create new variables. ie variable 0 <= x <= 3 --> x = LpVariable("x", 0, 3)
+sudoku_problem = plp.LpVariable("Sudoku_problem")
