@@ -14,6 +14,8 @@ import pulp as plp
 sudoku_problem = plp.LpVariable("Sudoku_problem")
 
 # Step 2: Set the objective function
-# An objective function is linear function whose value needs to be either min or max based on
+# An objective function is a linear function whose values generally need to be either min or max based on
 # the problem to be solved.
-#  
+# With sudoku there is no solution that is better than another solution, since a sudoku's solution isn't 
+# min max'd. The sudoku's solution is defined by it completing the constraints of the problem, 1-9 of row,
+# column, and grids. In some cases diagonal to if it is also a diagonal sudoku.
