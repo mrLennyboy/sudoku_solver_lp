@@ -12,3 +12,8 @@ import pulp as plp
 # Step 1: Define the Linear Programming problem (variable to contain problem data)
 # Use LpVariable() to create new variables. ie variable 0 <= x <= 3 --> x = LpVariable("x", 0, 3)
 sudoku_problem = plp.LpVariable("Sudoku_problem")
+
+# Step 2: Set the objective function
+# An objective function is linear function whose value needs to be either min or max based on
+# the problem to be solved.
+#  
