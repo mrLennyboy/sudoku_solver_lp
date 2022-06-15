@@ -19,3 +19,9 @@ sudoku_problem = plp.LpVariable("Sudoku_problem")
 # With sudoku there is no solution that is better than another solution, since a sudoku's solution isn't 
 # min max'd. The sudoku's solution is defined by it completing the constraints of the problem, 1-9 of row,
 # column, and grids. In some cases diagonal to if it is also a diagonal sudoku.
+
+# Step 3: Define the Linear Programming problem
+# Step 4: Set the constraints
+# Step 5: Solve the Sudoku puzzle
+# Step 6: Check if an optimal result is found
+#
