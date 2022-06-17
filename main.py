@@ -96,12 +96,13 @@ def print_solution(solution, rows, cols):
       print(solution[row][col],end=num_end)
 
     if ((row+1)%3 == 0):
-      print("\n\n+ ----------- + ----------- + ----------- +",end="")
+      print("\n\n+ ----------- + ----------- + ----------- +\n",end="")
+
 
 def solve_sudoku(input_sudoku, diagonal = False):
   # Step 1: Define the Linear Programming problem (variable to contain problem data)
-  # Use LpVariable() to create new variables. ie variable 0 <= x <= 3 --> x = LpVariable("x", 0, 3)
-  sudoku_problem = plp.LpVariable("Sudoku_problem_solver")
+  # create new variables
+  sudoku_problem = plp.LpProblem("Sudoku_problem_solver")
 
   # Step 2: Set the objective function
   # An objective function is a linear function whose values generally need to be either min or max based on
@@ -142,6 +143,38 @@ def solve_sudoku(input_sudoku, diagonal = False):
   solution_status = plp.LpStatus[sudoku_problem.status]
   print(f'Solution Status = {solution_status}')
 
+  # extract the solution if an optimal solution has been identified
+  if solution_status == 'Optimal':
+    solution = extract_solution(grid_variables, rows, cols, values)
+    print_solution(solution, rows, cols)
 
+'''
+normal_sudoku = [
+                    [3,0,0,8,0,0,0,0,1],
+                    [0,0,0,0,0,2,0,0,0],
+                    [0,4,1,5,0,0,8,3,0],
+                    [0,2,0,0,0,1,0,0,0],
+                    [8,5,0,4,0,3,0,1,7],
+    
+                    [0,0,0,7,0,0,0,2,0],
+                    [0,8,5,0,0,9,7,4,0],
+                    [0,0,0,1,0,0,0,0,0],
+                    [9,0,0,0,0,7,0,0,6]
+                ]
 
+solve_sudoku(input_sudoku=normal_sudoku, diagonal=False)
+'''
+normal_sudoku = [
+                    [3,0,0,8,0,0,0,0,1],
+                    [0,0,0,0,0,2,0,0,0],
+                    [0,4,1,5,0,0,8,3,0],
+                    [0,2,0,0,0,1,0,0,0],
+                    [8,5,0,4,0,3,0,1,7],
+    
+                    [0,0,0,7,0,0,0,2,0],
+                    [0,8,5,0,0,9,7,4,0],
+                    [0,0,0,1,0,0,0,0,0],
+                    [9,0,0,0,0,7,0,0,6]
+                ]
 
+solve_sudoku(input_sudoku=normal_sudoku, diagonal=False)
