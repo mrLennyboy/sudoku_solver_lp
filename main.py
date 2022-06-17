@@ -70,10 +70,22 @@ def add_prefilled_constraints(sudoku_problem, input_sudoku, grid_variables, rows
         rhs=input_sudoku[row][col], 
         name=f"constraint_prefilled_{row}_{col}"))
 
+# wrap in function
+def extract_solution(grid_variables, rows, cols, values):
+  # Code to extract the final solution grid
+  solution = [[0 for col in cols] for row in rows]
+  grid_list = []
+  for row in rows:
+    for col in cols:
+      for value in values:
+        if plp.value(grid_variables[row][col][value]):
+          solution[row][col] = value
+  return solution
+
 def solve_sudoku(input_sudoku, diagonal = False):
   # Step 1: Define the Linear Programming problem (variable to contain problem data)
   # Use LpVariable() to create new variables. ie variable 0 <= x <= 3 --> x = LpVariable("x", 0, 3)
-  sudoku_problem = plp.LpVariable("Sudoku_problem")
+  sudoku_problem = plp.LpVariable("Sudoku_problem_solver")
 
   # Step 2: Set the objective function
   # An objective function is a linear function whose values generally need to be either min or max based on
@@ -96,22 +108,25 @@ def solve_sudoku(input_sudoku, diagonal = False):
   # Decision Variable/Target Variable
   grid_variables = plp.LpVariable.dicts("grid_value", (rows,cols,values), cat = 'Binary')
 
+  # Create the default constraints to solve sudoku
+  add_default_sudoku_constraints(sudoku_problem, grid_variables, rows, cols, grids, values)
+
+  # Add the diagonal constraints if flag is set
+  if diagonal:
+    add_diagonal_sudoku_constraints(sudoku_problem, grid_variables, rows, cols, values)
+
+  # Constraint to initialize the input Sudoku puzzle, add prefilled values as constraints
+  add_prefilled_constraints(sudoku_problem, input_sudoku, grid_variables, rows, cols, values)
 
   # Step 5: Solve the Sudoku puzzle
   # After the Objective function, decision variables, and constraints are set the sudoku solver can be invoked
   sudoku_problem.solve()
 
   # Step 6: Check if an optimal result is found
-  print(f'Solution Status = {plp.LpStatus[sudoku_problem.status]}')
+  solution_status = plp.LpStatus[sudoku_problem.status]
+  print(f'Solution Status = {solution_status}')
 
-  # Code to extract the final solution grid
-  solution = [[0 for col in cols] for row in rows]
-  grid_list = []
-  for row in rows:
-    for col in cols:
-      for value in values:
-        if plp.value(grid_variables[row][col][value]):
-          solution[row][col] = value 
+
 
   # Step 7: Print the result
   # Print the final solution as a grid
