@@ -80,6 +80,15 @@ for value in values:
   sudoku_problem.addConstraint(plp.LpConstraint(e=plp.lpSum([grid_variables[row][len(rows)-row-1][value]*value  for row in rows]),
   sense=plp.LpConstraintEQ, rhs=value, name=f"constraint_uniq_diag2_{value}"))
 
+# Constraint to initialize the input Sudoku puzzle, add prefilled values as constraints
+for row in rows:
+  for col in cols:
+    if(input_sudoku[row][col] != 0):
+      sudoku_problem.addConstraint(plp.LpConstraint(e=plp.lpSum([grid_variables[row][col][value]*value  for value in values]),
+      sense=plp.LpConstraintEQ, 
+      rhs=input_sudoku[row][col], 
+      name=f"constraint_prefilled_{row}_{col}"))
+
 # Step 5: Solve the Sudoku puzzle
 # Step 6: Check if an optimal result is found
 # Step 7: Print the result
