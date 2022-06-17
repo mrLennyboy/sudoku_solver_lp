@@ -24,4 +24,4 @@ sudoku_problem = plp.LpVariable("Sudoku_problem")
 # Step 4: Set the constraints
 # Step 5: Solve the Sudoku puzzle
 # Step 6: Check if an optimal result is found
-#
+# Step 7: Print the result
