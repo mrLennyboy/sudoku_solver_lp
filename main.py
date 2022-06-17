@@ -25,6 +25,15 @@ objective = plp.lpSum(0)
 sudoku_problem.setObjective(objective)
 
 # Step 3: Define the Linear Programming problem
+# Sudoku grid is 9 x 9 grid and consists of 81 cells. Each cell can take a value between 1 - 9.
+# Since each cell can only have one value set bool value.
+rows = range(0, 9)
+cols = range(0, 9)
+grids = range(0, 9)
+values = range(1, 10)
+
+# Decision Variable/Target Variable
+grid_variables = plp.LpVariable.dicts("grid_value", (rows,cols,values), cat = 'Binary')
 
 # Step 4: Set the constraints
 # Step 5: Solve the Sudoku puzzle
