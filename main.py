@@ -100,4 +100,28 @@ def add_prefilled_constraints(sudoku_problem, input_sudoku, grid_variables, rows
 sudoku_problem.solve()
 
 # Step 6: Check if an optimal result is found
+print(f'Solution Status = {plp.LpStatus[sudoku_problem.status]}')
+
+# Code to extract the final solution grid
+solution = [[0 for col in cols] for row in rows]
+grid_list = []
+for row in rows:
+  for col in cols:
+    for value in values:
+      if plp.value(grid_variables[row][col][value]):
+        solution[row][col] = value 
+
 # Step 7: Print the result
+# Print the final solution as a grid
+print(f"\nFinal result:")
+
+print("\n\n+ ----------- + ----------- + ----------- +",end="")
+for row in rows:
+  print("\n",end="\n|  ")
+  for col in cols:
+    num_end = "  |  " if ((col+1)%3 == 0) else "   "
+    print(solution[row][col],end=num_end)
+
+  if ((row+1)%3 == 0):
+    print("\n\n+ ----------- + ----------- + ----------- +",end="")
+
