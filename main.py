@@ -90,5 +90,8 @@ for row in rows:
       name=f"constraint_prefilled_{row}_{col}"))
 
 # Step 5: Solve the Sudoku puzzle
+# After the Objective function, decision variables, and constraints are set the sudoku solver can be invoked
+sudoku_problem.solve()
+
 # Step 6: Check if an optimal result is found
 # Step 7: Print the result
