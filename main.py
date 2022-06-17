@@ -82,6 +82,22 @@ def extract_solution(grid_variables, rows, cols, values):
           solution[row][col] = value
   return solution
 
+# wrap in function
+def print_solution(solution, rows, cols):
+  # Step 7: Print the result
+  # Print the final solution as a grid
+  print(f"\nFinal result:")
+
+  print("\n\n+ ----------- + ----------- + ----------- +",end="")
+  for row in rows:
+    print("\n",end="\n|  ")
+    for col in cols:
+      num_end = "  |  " if ((col+1)%3 == 0) else "   "
+      print(solution[row][col],end=num_end)
+
+    if ((row+1)%3 == 0):
+      print("\n\n+ ----------- + ----------- + ----------- +",end="")
+
 def solve_sudoku(input_sudoku, diagonal = False):
   # Step 1: Define the Linear Programming problem (variable to contain problem data)
   # Use LpVariable() to create new variables. ie variable 0 <= x <= 3 --> x = LpVariable("x", 0, 3)
@@ -128,17 +144,4 @@ def solve_sudoku(input_sudoku, diagonal = False):
 
 
 
-  # Step 7: Print the result
-  # Print the final solution as a grid
-  print(f"\nFinal result:")
-
-  print("\n\n+ ----------- + ----------- + ----------- +",end="")
-  for row in rows:
-    print("\n",end="\n|  ")
-    for col in cols:
-      num_end = "  |  " if ((col+1)%3 == 0) else "   "
-      print(solution[row][col],end=num_end)
-
-    if ((row+1)%3 == 0):
-      print("\n\n+ ----------- + ----------- + ----------- +",end="")
 
