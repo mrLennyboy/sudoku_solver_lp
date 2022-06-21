@@ -137,7 +137,8 @@ def solve_sudoku(input_sudoku, diagonal = False):
 
   # Step 5: Solve the Sudoku puzzle
   # After the Objective function, decision variables, and constraints are set the sudoku solver can be invoked
-  sudoku_problem.solve()
+  # Write to file instead of terminal
+  sudoku_problem.solve(plp.PULP_CBC_CMD(logPath=r'path.lp'))
 
   # Step 6: Check if an optimal result is found
   solution_status = plp.LpStatus[sudoku_problem.status]
@@ -155,7 +156,6 @@ normal_sudoku = [
                     [0,4,1,5,0,0,8,3,0],
                     [0,2,0,0,0,1,0,0,0],
                     [8,5,0,4,0,3,0,1,7],
-    
                     [0,0,0,7,0,0,0,2,0],
                     [0,8,5,0,0,9,7,4,0],
                     [0,0,0,1,0,0,0,0,0],
@@ -164,17 +164,15 @@ normal_sudoku = [
 
 solve_sudoku(input_sudoku=normal_sudoku, diagonal=False)
 '''
-normal_sudoku = [
-                    [3,0,0,8,0,0,0,0,1],
-                    [0,0,0,0,0,2,0,0,0],
-                    [0,4,1,5,0,0,8,3,0],
-                    [0,2,0,0,0,1,0,0,0],
-                    [8,5,0,4,0,3,0,1,7],
-    
-                    [0,0,0,7,0,0,0,2,0],
-                    [0,8,5,0,0,9,7,4,0],
-                    [0,0,0,1,0,0,0,0,0],
-                    [9,0,0,0,0,7,0,0,6]
+diagonal_sudoku = [
+                    [0,3,0,2,7,0,0,0,0],
+                    [0,0,0,0,0,0,0,0,0],
+                    [8,0,0,0,0,0,0,0,0],
+                    [5,1,0,0,0,0,0,8,4],
+                    [4,0,0,5,9,0,0,7,0],
+                    [2,9,0,0,0,0,0,1,0],
+                    [0,0,0,0,0,0,1,0,5],
+                    [0,0,6,3,0,8,0,0,7],
+                    [0,0,0,0,0,0,3,0,0]
                 ]
-
-solve_sudoku(input_sudoku=normal_sudoku, diagonal=False)
+solve_sudoku(input_sudoku=diagonal_sudoku, diagonal=True)
